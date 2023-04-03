@@ -87,7 +87,7 @@
         "Tomate",
         "Pepino"
       ],
-      "status": "Solicitado",
+      "status": "Em produção",
       "id": 1
     },
     {
@@ -98,8 +98,19 @@
         "Cebola roxa",
         "Salame"
       ],
-      "status": "Solicitado",
+      "status": "Finalizado",
       "id": 2
+    },
+    {
+      "nome": "Luiz Carlos",
+      "carne": "Maminha",
+      "pao": "3 Queijos",
+      "opcionais": [
+        "Bacon",
+        "Salame"
+      ],
+      "status": "Finalizado",
+      "id": 3
     }
   ]
 }

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <p>Componente de Mensagem</p>
+    <Message :msg="msg" v-show="msg" />
     <div>
-      <form id="burguer-form" @submit="createBurguer">
+      <form id="burger-form" @submit="createBurger">
         <div class="input-container">
           <label for="nome">Nome do cliente:</label>
           <input type="text" id="nome" name="nome" v-model="nome" placeholder="Digite o seu nome:" >
@@ -10,14 +10,14 @@
         <div class="input-container">
           <label for="pao">Escolha o pão:</label>
           <select name="pao" id="pao" v-model="pao">
-            <option value="">Selecione o seu pão</option>
+            <option disabled value="">Selecione um pão</option>
             <option v-for="pao in paes" :key="pao.id" :value="pao.tipo">{{ pao.tipo }}</option>
           </select>
         </div>
         <div class="input-container">
           <label for="carne">Escolha a carne do seu hambúrguer:</label>
           <select name="carne" id="carne" v-model="carne">
-            <option value="">Selecione o seu tipo de carne</option>
+            <option disabled value="">Selecione uma carne</option>
             <option v-for="carne in carnes" :key="carne.id" :value="carne.tipo">{{ carne.tipo }}</option>
           </select>
         </div>
@@ -37,8 +37,11 @@
 </template>
 
 <script>
+import Message from './Message.vue';
+
+
 export default {
-  name: "BurguerForm",
+  name: "BurgerForm",
   data() {
     return {
         paes: null,
@@ -61,7 +64,7 @@ export default {
         this.carnes = data.carnes;
         this.opcionaisdata = data.opcionais;
     },
-    async createBurguer(e){
+    async createBurger(e){
 
         e.preventDefault();
         
@@ -84,6 +87,10 @@ export default {
         const res = await req.json();
 
         // Colocar uma msg de sistema
+        this.msg = `Pedido Nº ${res.id} realizado com sucesso!`;
+
+        // limpar msg
+        setTimeout(() => this.msg = "", 5000);
 
         // limpar os campos
         this.nome =  "";
@@ -94,13 +101,16 @@ export default {
   },
   mounted(){
     this.getIngredientes();
+  },
+  components: {
+    Message
   }
 
 }
 </script>
 
 <style scoped>
-    #burguer-form{
+    #burger-form{
         max-width: 400px;
         margin: 0 auto;
 
